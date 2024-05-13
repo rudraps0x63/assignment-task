@@ -671,12 +671,6 @@ class TransformerTranslate {
     */
   }
 
-  void PrefillStep(String generation_config_str) {
-    /**
-     * TASK: Complete this function.
-    */
-  }
-
   NDArray PrefillStep() {
     /**
      * TASK: Complete this function.
@@ -1115,13 +1109,8 @@ class TranslateModule : public ModuleNode {
     } else if (name == "prefill") {
       return PackedFunc([this, sptr_to_self](TVMArgs args, TVMRetValue* rv) {
         ICHECK(0 <= args.size() && args.size() <= 1);
-        if (args.size() == 0) {
-          // args: generation_config_str = ""
-          GetTranslate()->PrefillStep();
-        } else if (args.size() == 1) {
-          // args: generation_config_str
-          GetTranslate()->PrefillStep(static_cast<String>(args[0]));
-        }
+
+        GetTranslate()->PrefillStep();
       });
     } else if (name == "generate") {
       return PackedFunc([this, sptr_to_self](TVMArgs args, TVMRetValue* rv) {
